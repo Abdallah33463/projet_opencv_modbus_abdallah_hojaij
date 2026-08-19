@@ -1,0 +1,26 @@
+name: CI Python
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Recuperer le projet
+        uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Verifier la syntaxe des fichiers Python
+        run: |
+          python -m py_compile code_opencv.py
+          python -m py_compile code_opencv_serveur_modbus.py
+          python -m py_compile interface_client_modbus.py
